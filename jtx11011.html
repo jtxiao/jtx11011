@@ -1,0 +1,95 @@
+<html>
+<head>
+
+
+<title>Web page control for JTX11011 drum machine</title>
+<link rel="stylesheet" href="buttons.css">
+<script>
+function sendIt(myValue){     // simplifies sending info to the photon
+    document.all.myParameter.value=myValue
+    document.myForm.action = 'https://api.spark.io/v1/devices/' + document.all.myDeviceId.value + '/my-main'
+    document.all.mySend.value = document.myForm.action
+
+    document.myForm.submit();
+}
+</script>
+
+</head>
+
+<body onload="{
+   myStorage1 = localStorage.getItem('myStoredText1')
+   if(myStorage1  != null){
+      document.getElementById('myToken').value = myStorage1
+    }
+
+    myStorage2 = localStorage.getItem('myStoredText2')
+    if(myStorage2  != null){
+       document.getElementById('myDeviceId').value = myStorage2
+
+    }
+
+
+}">
+
+
+Device ID:<input id="myDeviceId" name="myCoreID" type=password size=50 placeholder="23002d000c47343432313031">
+Get this from the core area when logged in<br>
+
+
+<input id="myFunctionName" name="myFunction"  type=hidden  value="my-main" >
+
+
+<form name="myForm" method="POST" action = "https://api.spark.io/v1/devices/sparkCoreName/myTurnOn" target="myFrameName"><br>
+
+<input id="myParameter" name="params" type=hidden >
+
+Access Token:<input id="myToken" name="access_token" type=password size=50 placeholder="2cbb15a2192b2f76356e5bee5b2b93d6db79f336">
+Get this from the settings area when logged into <a href="http://spark.io">http://spark.io</a><br><br>
+
+</form>
+
+<br><br>
+<div style="width:50rem; height: 35rem; margin:0 auto;">
+<input type="button" class="button button-kick button-giant" value="Kick" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-snare button-giant" value="Snare" onClick="{
+    sendIt('d6-send-1');
+}">
+
+<input type="button" class="button button-clap button-giant" value="Clap" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-open button-giant" value="Open Hat" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-close button-giant" value="Closed Hat" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-low button-giant" value="Low Tom" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-mid button-giant" value="Mid Tom" onClick="{
+    sendIt('d7-send-1');
+}">
+
+<input type="button" class="button button-hi button-giant" value="High Tom" onClick="{
+    sendIt('d7-send-1');
+}">
+
+</div>
+
+
+<br><br>
+
+<input type=hidden id="mySend" value="">
+<iframe style="display:none" width="400" height="200" name="myFrameName" id="myFrameId"></iframe>
+
+
+</body>
+</html>
